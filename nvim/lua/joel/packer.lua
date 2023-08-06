@@ -65,6 +65,9 @@ return require("packer").startup(function(use)
 	use({
 		"j-hui/fidget.nvim",
 		tag = "legacy",
+		config = function()
+			require("fidget").setup({})
+		end,
 	})
 	use({
 		"nvim-lualine/lualine.nvim",
@@ -80,9 +83,9 @@ return require("packer").startup(function(use)
 	use("christoomey/vim-tmux-navigator") -- tmux & split window navigation
 
 	use("dart-lang/dart-vim-plugin")
-	-- Put this at the end after all plugins
-	--
+	use("numToStr/Comment.nvim")
 
+	-- Put this at the end after all plugins
 	if packer_bootstrap then
 		require("packer").sync()
 	end
