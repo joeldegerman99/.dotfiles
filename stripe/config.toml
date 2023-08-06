@@ -1,0 +1,13 @@
+color = ''
+project-name = 'default'
+[default]
+account_id = 'acct_1NX3A8LFDlUedGWx'
+device_name = 'Joels-MBP'
+display_name = 'ai-sass'
+live_mode_api_key = 'rk_live_***********************************************************************************************lePi'
+live_mode_key_expires_at = '2023-10-21'
+live_mode_pub_key = 'pk_live_51NX3A8LFDlUedGWx9KT5AwY04jP2lBNgkXrwRvFQSUNGR26AeKAtzzejDaBS5UFSZKYllYhbLknveiATMuWwCVZO00gTXMXuRk'
+test_mode_api_key = 'rk_test_51NX3A8LFDlUedGWxLTCPahESJtOtw7LSaB2Xst4haz4kW0KOhcpoud2VrMOs65wO8wztOiwZJb8vpfvISX3HfltT008BOhllAq'
+test_mode_key_expires_at = '2023-10-21'
+test_mode_pub_key = 'pk_test_51NX3A8LFDlUedGWx7xgyfRb6St4TblNj44VnYu1W6zK8GtnmLkry8yWynFbTNiaeMqvMESAvmvVKHjzCHaLQkGx400RaTgWNXw'
+
