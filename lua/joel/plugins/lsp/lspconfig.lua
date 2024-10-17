@@ -11,6 +11,10 @@ return {
     { "antosha417/nvim-lsp-file-operations", config = true },
   },
   config = function()
+    local mason_registry = require("mason-registry")
+    local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+      .. "/node_modules/@vue/language-server"
+
     -- import lspconfig plugin
     local lspconfig = require("lspconfig")
 
@@ -82,9 +86,30 @@ return {
     })
 
     -- -- configure typescript server with plugin
-    lspconfig["tsserver"].setup({
+    lspconfig["ts_ls"].setup({
+      init_options = {
+        plugins = {
+          {
+            -- Name of the TypeScript plugin for Vue
+            name = "@vue/typescript-plugin",
+
+            -- Location of the Vue language server module (path defined in step 1)
+            location = vue_language_server_path,
+
+            -- Specify the languages the plugin applies to (in this case, Vue files)
+            languages = { "vue" },
+          },
+        },
+      },
       capabilities = capabilities,
       on_attach = on_attach,
+      filetypes = {
+        "typescript", -- TypeScript files (.ts)
+        "javascript", -- JavaScript files (.js)
+        "javascriptreact", -- React files with JavaScript (.jsx)
+        "typescriptreact", -- React files with TypeScript (.tsx)
+        "vue", -- Vue.js single-file components (.vue)
+      },
     })
 
     lspconfig["csharp_ls"].setup({
@@ -111,49 +136,6 @@ return {
 
     -- configure tailwindcss server
     lspconfig["tailwindcss"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure svelte server
-    lspconfig["svelte"].setup({
-      capabilities = capabilities,
-      on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-
-        vim.api.nvim_create_autocmd("BufWritePost", {
-          pattern = { "*.js", "*.ts" },
-          callback = function(ctx)
-            if client.name == "svelte" then
-              client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
-            end
-          end,
-        })
-      end,
-    })
-
-    -- configure prisma orm server
-    lspconfig["prismals"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure graphql language server
-    lspconfig["graphql"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-    })
-
-    -- configure emmet language server
-    lspconfig["emmet_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
-    })
-
-    -- configure python server
-    lspconfig["pyright"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
     })
